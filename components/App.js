@@ -15,9 +15,11 @@ export default {
     <header>
       <h1>sticky notes</h1>
       <button @click="createNote">+ create</button>
+      <input id="search" type="text" placeholder="search"
+        :value="query" @input="query = $event.target.value">
     </header>
     <main>
-      <note v-for="note in notes" :key="note.id"
+      <note v-for="note in shownNotes" :key="note.id"
         :note="note" @click="openedNote = note"
         @delete="deleteNote(note.id)"></note>
       <div class="empty-filler" v-if="!notes.length">
@@ -32,19 +34,29 @@ export default {
       @delete="deleteNote(openedNote.id)"
       @input="saveOpenedNote"></note-window>
   </div>`,
-  data : () => ({
+
+  data: () => ({
     noteRepo,
+    query: '',
     openedNote: null,
     notes: [
       { id: 1, color: 'red', content: 'Hasselback Potatodmkdkdkk d dmdmmfmfn fnjnenskksksksks skksksksksksm sksksksknsns oeidndneie krnrkeo acqxxfqg ejekoepfp d dkdkdlkrkrkdnn dkkdkfkdmdmdndnd kdkdkrndndkrnnd dkldkcmfndkfokfk dkdkneneekke kdkdkdkdkdkdk kdkdciicuhneo kdkdkdndndndndndmdn kddm' }
     ]
   }),
+  computed: {
+    shownNotes() {
+      return this.query === '' ? this.notes
+        : this.notes.filter(n => 
+          n.content.toLowerCase()
+          .includes(this.query.toLowerCase()))
+    },
+  },
   methods: {
     createNote() {
       this.noteRepo.saveNote(
         { color: 'yellow', content: '' })
         .then(note => {
-          this.notes.unshift(note)
+          this.openedNote = note
         })
     },
     saveOpenedNote() {
@@ -54,6 +66,7 @@ export default {
       this.noteRepo.deleteNote(id)
         .then(() => {
           this.notes = this.notes.filter(n => n.id !== id)
+          this.openedNote = null
         })
     },
   },
