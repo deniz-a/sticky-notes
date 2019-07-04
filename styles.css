@@ -1,7 +1,8 @@
-@import url('https://fonts.googleapis.com/css?family=Rubik&display=swap');
+/*@import url('https://fonts.googleapis.com/css?family=Rubik&display=swap');*/
+@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Mono&display=swap');
 
-html {
-  font-family: 'Rubik', monospace;
+* {
+  font-family: 'IBM Plex Mono', monospace;
 }
 
 /* just define some variables */
