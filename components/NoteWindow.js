@@ -27,7 +27,6 @@ export default {
         <color-dropdown @change="changeColor"></color-dropdown>
       </header>
       <main>
-        {{ note.id }}
         <textarea v-model="note.content"
           @input="$emit('input')"></textarea>
       </main>
