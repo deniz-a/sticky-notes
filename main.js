@@ -1,3 +1,5 @@
+import Vue from 'https://cdn.jsdelivr.net/npm/vue/dist/vue.esm.browser.js'
+
 import App from '/components/App.js'
 
 new Vue({
