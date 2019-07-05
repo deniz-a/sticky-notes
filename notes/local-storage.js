@@ -7,7 +7,8 @@ export default function  LocalStorageNoteRepo() {
       || typeof note !== 'object'
       // TODO: Check if note.color is one of the allowed colors
       || typeof note.color !== 'string'
-      || typeof note.content !== 'string') {
+      || typeof note.content !== 'string'
+    ) {
       
       throw `Invalid note: ${note}`
     }
@@ -19,8 +20,9 @@ export default function  LocalStorageNoteRepo() {
 
   const loadNotes = () => {
     if (!notes) notes = JSON.parse(window.localStorage.notes)
-    notes.forEach((note, index) => 
-      notes[index].id = notes[index].id || Math.random())
+    notes.forEach((note, index) => {
+      notes[index].id = notes[index].id || Math.random()
+    })
   }
   return {
     getNotes() {

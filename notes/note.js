@@ -1,2 +1,2 @@
-export const Note = (color, content) => 
-  ({ color, content }) 
+sxport const Note = (color, content, createdAt) => 
+  ({ color, content, createdAt }) 
