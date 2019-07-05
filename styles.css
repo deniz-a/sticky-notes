@@ -137,7 +137,7 @@ main {
   margin: 1rem;
   
   display: grid;
-  grid-template-columns: 1fr auto auto;
+  grid-template-columns: 1fr auto auto auto;
   grid-gap: 1rem;
 }
 

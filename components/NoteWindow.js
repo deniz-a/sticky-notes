@@ -24,6 +24,7 @@ export default {
       <header>
         <a @click="$emit('close')">back</a>
         <a @click="$emit('delete')">delete</a>
+        <a v-if="canShare" @click="share">share</a>
         <color-dropdown @change="changeColor"></color-dropdown>
       </header>
       <main>
@@ -31,10 +32,20 @@ export default {
           @input="$emit('input')"></textarea>
       </main>
     </div>`,
+  data: () => ({
+    canShare: Boolean(window.navigator.share),
+  }),
   methods: {
     changeColor({ color }) {
       this.$set(this.note, 'color', color)
       this.$emit('input')
+    },
+    share() {
+      window.navigator.share({
+        text: this.note.content,
+        color: this.note.color,
+        timestamp: this.note.createdAt
+      })
     },
   },
 }

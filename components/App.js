@@ -21,7 +21,8 @@ export default {
     <main>
       <note v-for="note in shownNotes" :key="note.id"
         :note="note" @click="openedNote = note"
-        @delete="deleteNote(note.id)"></note>
+        @delete="deleteNote(note.id)"
+        @share="share(note.id)"></note>
       <div class="empty-filler" v-if="!notes.length">
         <h4>You have no notes... yet.</h4>
         Press the <code>+ create</code> button to start 
@@ -54,7 +55,7 @@ export default {
   methods: {
     createNote() {
       this.noteRepo.saveNote(
-        { color: 'yellow', content: '' })
+        { color: 'yellow', content: '', createdAt: Date.now() })
         .then(note => {
           this.openedNote = note
         })
@@ -67,6 +68,16 @@ export default {
         .then(() => {
           this.notes = this.notes.filter(n => n.id !== id)
           this.openedNote = null
+        })
+    },
+    shareNote(id) {
+      this.noteRepo.getNoteById(id)
+        .then(note => {
+          window.navigator.share({
+            text: note.content,
+            color: note.color,
+            timestamp: note.createdAt,
+          })
         })
     },
   },
