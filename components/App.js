@@ -1,9 +1,9 @@
-import Note from '/components/Note.js'
-import NoteWindow from '/components/NoteWindow.js'
+import Note from './Note.js'
+import NoteWindow from './NoteWindow.js'
 
-import NoteRepo from '/notes/local-storage.js'
+import NoteRepo from '../notes/local-storage.js'
 
-import { html } from '/util.js'
+import { html } from '../util.js'
 
 const noteRepo = NoteRepo()
 

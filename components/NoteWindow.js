@@ -1,4 +1,4 @@
-import { html, colors } from '/util.js'
+import { html, colors } from '../util.js'
 
 const ColorDropdown = {
   name: 'ColorDropdown',
