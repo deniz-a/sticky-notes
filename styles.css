@@ -1,5 +1,5 @@
 /*@import url('https://fonts.googleapis.com/css?family=Rubik&display=swap');*/
-@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700i&display=swap');
 
 * {
   font-family: 'IBM Plex Mono', monospace;
@@ -120,17 +120,31 @@ main {
 }
 
 .note.page {
+  /* center popup triccs */
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
+  top: 50vh;
+  left: 50vw;
+  transform: translate(-50%, -50%);
+  width: 80vw;
+  height: 80vh;
   box-sizing: border-box;
   padding: 0;
   margin: 0;
 
+  box-shadow: 0 1rem 2rem black, 0 0.5rem 1rem black;
+  border-radius: var(--border-radius);
+
   display: grid;
   grid-template-rows: auto 1fr;
+}
+
+@media only screen and (max-width: 768px) {
+  .note.page {
+    width: 100vw;
+    height: 100vh;
+    box-shadow: none;
+    border-radius: 0;
+  }
 }
 
 .note.page>header {
@@ -143,6 +157,7 @@ main {
 
 .note.page a {
   color: var(--note-fg-color, var(--note-rim-color));
+  font-style: italic;
 }
 
 .note.page a:hover {

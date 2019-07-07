@@ -22,7 +22,7 @@ export default {
   template: html`
     <div :class="'note page note-color-'+note.color">
       <header>
-        <a @click="$emit('close')">back</a>
+        <a @click="$emit('close')">close</a>
         <a @click="$emit('delete')">delete</a>
         <a v-if="canShare" @click="share">share</a>
         <color-dropdown @change="changeColor"></color-dropdown>
