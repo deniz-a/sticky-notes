@@ -2,18 +2,6 @@ export default function  LocalStorageNoteRepo() {
   let notes
 
   // TODO: Move to another file so all providers can use
-  const checkNote = note => {
-    if (note == null
-      || typeof note !== 'object'
-      // TODO: Check if note.color is one of the allowed colors
-      || typeof note.color !== 'string'
-      || typeof note.content !== 'string'
-    ) {
-      
-      throw `Invalid note: ${note}`
-    }
-  }
-
   const saveNotes = () => {
     window.localStorage.setItem('notes', JSON.stringify(notes))
   }
@@ -35,19 +23,21 @@ export default function  LocalStorageNoteRepo() {
       return Promise.resolve(notes.find(note => note.id === id))
     },
     saveNote(note) {
-      checkNote(note)
+      if (checkNote(note)) {
       note.id = Math.random()
       notes.unshift(note)
       saveNotes()
-      return Promise.resolve(note)
+        return Promise.resolve(note)
+      } else return Promise.reject('Invalid note')
     },
 
     editNote(newNote) {
-      checkNote(newNote)
-      const index = notes.findIndex(note => 
-        note.id === newNote.id)
-      notes[index] = newNote
-      return Promise.resolve(saveNotes())
+      if (checkNote(newNote)) {
+        const index = notes.findIndex(note => 
+          note.id === newNote.id)
+        notes[index] = newNote
+        return Promise.resolve(saveNotes())
+      } else return Promise.reject('Invalid note')
     },
 
     deleteNote(id) {
