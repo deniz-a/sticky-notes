@@ -57,6 +57,7 @@ export default {
       this.noteRepo.saveNote(
         { color: 'yellow', content: '', createdAt: Date.now() })
         .then(note => {
+          this.notes.unshift(note)
           this.openedNote = note
         })
     },
