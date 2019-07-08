@@ -9,7 +9,7 @@ export default function IdbKeyvalNoteRepo() {
 
     getNotes() {
       return keys(store).then(keys => Promise.all(
-        keys.map(k => get(k, store))))
+        keys.reverse().map(k => get(k, store))))
     },
 
     getNoteById(id) {
