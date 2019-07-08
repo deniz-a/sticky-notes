@@ -20,6 +20,7 @@ export default function IdbKeyvalNoteRepo() {
       if (checkNote(note)) {
         note.id = String(Math.random())
         return set(note.id, note, store)
+          .then(() => note)
       } else return Promise.reject('Invalid note')
     },
 

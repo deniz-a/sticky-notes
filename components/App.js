@@ -1,7 +1,7 @@
 import Note from './Note.js'
 import NoteWindow from './NoteWindow.js'
 
-import NoteRepo from '../notes/local-storage.js'
+import NoteRepo from '../notes/idb-keyval.js'
 
 import { html } from '../util.js'
 
