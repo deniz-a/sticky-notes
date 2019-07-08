@@ -29,11 +29,13 @@ export default {
         writing your first note.
       </div>
     </main>
-    <note-window v-if="openedNote !== null"
-      :note="openedNote"
-      @close="openedNote = null"
-      @delete="deleteNote(openedNote.id)"
-      @input="saveOpenedNote"></note-window>
+    <transition name="note-page">
+      <note-window v-if="openedNote !== null"
+        :note="openedNote"
+        @close="openedNote = null"
+        @delete="deleteNote(openedNote.id)"
+        @input="saveOpenedNote"></note-window>
+    </transition>
   </div>`,
 
   data: () => ({
