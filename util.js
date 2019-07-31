@@ -44,14 +44,14 @@ export function formatDate(date) {
     
     if (year != now.getFullYear()) {
 
-      rv += `, ${day} ${monthName} ${year}`
+      rv += `, ${day} ${month} ${year}`
     } else if (month != now.getMonth()) {
-      rv += `, ${day} ${monthName}`
+      rv += `, ${day} ${month}`
     } else if (day != now.getDate()) {
       if (now.getDate() - day == 1) {
         rv += ', yesterday'
       } else {
-        rv += `, ${day} ${monthName}`
+        rv += `, ${day} ${month}`
       }
     }
   }
