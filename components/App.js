@@ -3,14 +3,15 @@ import NoteWindow from './NoteWindow.js'
 
 import NoteRepo from '../notes/idb-keyval.js'
 
-import { html } from '../util.js'
-
 const noteRepo = NoteRepo()
 
 export default {
   name: 'App',
-  components: { Note, NoteWindow },
-  template: html`
+  components: {
+    Note,
+    NoteWindow
+  },
+  template: `
   <div>
     <header>
       <h1>sticky notes</h1>
@@ -29,35 +30,39 @@ export default {
         writing your first note.
       </div>
     </main>
-    <transition name="note-page">
-      <note-window v-if="openedNote !== null"
-        :note="openedNote"
-        @close="openedNote = null"
-        @delete="deleteNote(openedNote.id)"
-        @input="saveOpenedNote"></note-window>
-    </transition>
+
+    <note-window v-if="openedNote !== null"
+      :note="openedNote"
+      @close="openedNote = null"
+      @delete="deleteNote(openedNote.id)"
+      @input="saveOpenedNote"></note-window>
   </div>`,
 
   data: () => ({
     noteRepo,
     query: '',
     openedNote: null,
-    notes: [
-      { id: 1, color: 'red', content: 'Hasselback Potatodmkdkdkk d dmdmmfmfn fnjnenskksksksks skksksksksksm sksksksknsns oeidndneie krnrkeo acqxxfqg ejekoepfp d dkdkdlkrkrkdnn dkkdkfkdmdmdndnd kdkdkrndndkrnnd dkldkcmfndkfokfk dkdkneneekke kdkdkdkdkdkdk kdkdciicuhneo kdkdkdndndndndndmdn kddm' }
-    ]
+    notes: [{
+      id: 1,
+      color: 'red',
+      content: 'Hasselback Potatodmkdkdkk d dmdmmfmfn fnjnenskksksksks skksksksksksm sksksksknsns oeidndneie krnrkeo acqxxfqg ejekoepfp d dkdkdlkrkrkdnn dkkdkfkdmdmdndnd kdkdkrndndkrnnd dkldkcmfndkfokfk dkdkneneekke kdkdkdkdkdkdk kdkdciicuhneo kdkdkdndndndndndmdn kddm'
+    }]
   }),
   computed: {
     shownNotes() {
-      return this.query === '' ? this.notes
-        : this.notes.filter(n => 
+      return this.query === '' ? this.notes :
+        this.notes.filter(n =>
           n.content.toLowerCase()
           .includes(this.query.toLowerCase()))
     },
   },
   methods: {
     createNote() {
-      this.noteRepo.saveNote(
-        { color: 'yellow', content: '', createdAt: new Date() })
+      this.noteRepo.saveNote({
+          color: 'yellow',
+          content: '',
+          createdAt: new Date()
+        })
         .then(note => {
           this.notes.unshift(note)
           this.openedNote = note

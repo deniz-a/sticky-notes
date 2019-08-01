@@ -1,12 +1,6 @@
-export function html(t) {
-  //  for (var o = [t[0]], i = 1, l = arguments.length; i < l; i++)
-  //    o.push(arguments[i], t[i]);
-  //  return o.join('');
-  return t[0]
-}
-
-export const colors = [ 'yellow', 'green', 'blue', 'pink', 
-  'red', 'black']
+export const colors = ['yellow', 'green', 'blue', 'pink',
+  'red', 'black'
+]
 
 export function formatDate(date) {
 
@@ -27,9 +21,9 @@ export function formatDate(date) {
   const year = date.getFullYear()
 
 
-  if (day == now.getDate() 
-    && month == now.getMonth()
-    && year == now.getYear()
+  if (day == now.getDate() &&
+    month == now.getMonth() &&
+    year == now.getYear()
   ) {
 
     if (hr == now.getHours() && min == now.getMinutes) {
@@ -41,7 +35,7 @@ export function formatDate(date) {
   } else {
 
     rv += `${hr}.${prependZero(min)}`
-    
+
     if (year != now.getFullYear()) {
 
       rv += `, ${day} ${month} ${year}`

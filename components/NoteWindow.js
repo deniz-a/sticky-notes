@@ -1,8 +1,10 @@
-import { html, colors } from '../util.js'
+import {
+  colors
+} from '../util.js'
 
 const ColorDropdown = {
   name: 'ColorDropdown',
-  template: html`
+  template: `
     <div class="color-dropdown">
       <a>color</a>
       <div class="color-dropdown-content">
@@ -12,31 +14,39 @@ const ColorDropdown = {
       </div>
     </div>
   `,
-  data: () => ({ colors }),
+  data: () => ({
+    colors
+  }),
 }
 
 export default {
   name: 'NoteWindow',
   props: ['note'],
-  components: { ColorDropdown },
-  template: html`
-    <div :class="'note page note-color-'+note.color">
-      <header>
-        <a @click="$emit('close')">close</a>
-        <a @click="$emit('delete')">delete</a>
-        <a v-if="canShare" @click="share">share</a>
-        <color-dropdown @change="changeColor"></color-dropdown>
-      </header>
-      <main>
-        <textarea v-model="note.content"
-          @input="$emit('input')"></textarea>
-      </main>
+  components: {
+    ColorDropdown
+  },
+  template: `
+    <div class="bg-tint" @click.self="$emit('close')">
+      <article :class="'note page note-color-'+note.color">
+        <header>
+          <a @click="$emit('close')">close</a>
+          <a @click="$emit('delete')">delete</a>
+          <a v-if="canShare" @click="share">share</a>
+          <color-dropdown @change="changeColor"></color-dropdown>
+        </header>
+        <main>
+          <textarea v-model="note.content"
+            @input="$emit('input')"></textarea>
+        </main>
+      </article>
     </div>`,
   data: () => ({
     canShare: Boolean(window.navigator.share),
   }),
   methods: {
-    changeColor({ color }) {
+    changeColor({
+      color
+    }) {
       this.$set(this.note, 'color', color)
       this.$emit('input')
     },
