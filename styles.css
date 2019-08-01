@@ -69,8 +69,11 @@ header>button:hover {
   box-shadow: 0 2px 4px gray;
 }
 
-header>input {
+header>label {
   grid-area: search-query;
+}
+
+input {
   height: 3rem;
   box-sizing: border-box;
   border-radius: var(--border-radius);

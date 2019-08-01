@@ -2,8 +2,7 @@
 
 const CACHE = "pwabuilder-offline";
 
-// TODO: replace the following with the correct offline fallback page i.e.: const offlineFallbackPage = "index.html";
-const offlineFallbackPage = "offline.html";
+const offlineFallbackPage = "index.html";
 
 // Install stage sets up the index page (home page) in the cache and opens a new cache
 self.addEventListener("install", function (event) {
@@ -13,11 +12,8 @@ self.addEventListener("install", function (event) {
     caches.open(CACHE).then(function (cache) {
       console.log("[PWA Builder] Cached offline page during install");
 
-      if (offlineFallbackPage === "ToDo-replace-this-name.html") {
-        return cache.add(new Response("TODO: Update the value of the offlineFallbackPage constant in the serviceworker."));
-      }
-      
-      return cache.add(offlineFallbackPage);
+      return cache.add(offlineFallbackPage)
+
     })
   );
 });
@@ -28,18 +24,18 @@ self.addEventListener("fetch", function (event) {
 
   event.respondWith(
     fetch(event.request)
-      .then(function (response) {
-        console.log("[PWA Builder] add page to offline cache: " + response.url);
+    .then(function (response) {
+      console.log("[PWA Builder] add page to offline cache: " + response.url);
 
-        // If request was success, add or update it in the cache
-        event.waitUntil(updateCache(event.request, response.clone()));
+      // If request was success, add or update it in the cache
+      event.waitUntil(updateCache(event.request, response.clone()));
 
-        return response;
-      })
-      .catch(function (error) {        
-        console.log("[PWA Builder] Network request Failed. Serving content from cache: " + error);
-        return fromCache(event.request);
-      })
+      return response;
+    })
+    .catch(function (error) {
+      console.log("[PWA Builder] Network request Failed. Serving content from cache: " + error);
+      return fromCache(event.request);
+    })
   );
 });
 
@@ -63,4 +59,3 @@ function updateCache(request, response) {
     return cache.put(request, response);
   });
 }
-

@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="theme-color" content="#f8ed74">
   <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
   <script src="./main.js" type="module"></script>
   <link rel="stylesheet" href="styles.css" media="all">
-  <link rel="stylesheet" href="manifest.json">
+  <link rel="manifest" href="manifest.json">
   <title>sticky notes</title>
 </head>
 <body>
@@ -15,7 +16,7 @@
   window.addEventListener('load', async () => {
     if ('serviceWorker' in navigator) {
       try {
-        await navigator.serviceWorker.register('./pwabuilder-sw.js')
+        if (!navigator.serviceWorker.controller) await navigator.serviceWorker.register('./pwabuilder-sw.js')
       } catch (err) {
         console.log('ServiceWorker registration failed', err)
       }

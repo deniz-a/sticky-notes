@@ -5,6 +5,17 @@ import NoteRepo from '../notes/idb-keyval.js'
 
 const noteRepo = NoteRepo()
 
+let deferredPrompt
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  // Prevent Chrome 67 and earlier from automatically showing the prompt
+  e.preventDefault()
+  // Stash the event so it can be triggered later.
+  deferredPrompt = e
+  // Update UI to notify the user they can add to home screen
+
+})
+
 export default {
   name: 'App',
   components: {
@@ -13,11 +24,13 @@ export default {
   },
   template: `
   <div>
+    <a v-if="deferredPrompt !== null" @click="install">install</a>
     <header>
       <h1>sticky notes</h1>
       <button @click="createNote">+ create</button>
+      <label for="search">search
       <input id="search" type="text" placeholder="search"
-        :value="query" @input="query = $event.target.value">
+        :value="query" @input="query = $event.target.value"></label>
     </header>
     <main>
       <note v-for="note in shownNotes" :key="note.id"
@@ -39,6 +52,7 @@ export default {
   </div>`,
 
   data: () => ({
+    deferredPrompt: null,
     noteRepo,
     query: '',
     openedNote: null,
@@ -88,6 +102,20 @@ export default {
           })
         })
     },
+    install(e) {
+      // hide our user interface that shows our A2HS button
+      // Show the prompt
+      this.deferredPrompt.prompt();
+      // Wait for the user to respond to the prompt
+      this.deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          console.log('User accepted the A2HS prompt');
+        } else {
+          console.log('User dismissed the A2HS prompt');
+        }
+        this.deferredPrompt = null;
+      })
+    },
   },
 
   created() {
@@ -95,5 +123,14 @@ export default {
       .then(notes => {
         this.notes = notes
       })
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      // Prevent Chrome 67 and earlier from automatically showing the prompt
+      e.preventDefault()
+      // Stash the event so it can be triggered later.
+      this.deferredPrompt = e
+      // Update UI to notify the user they can add to home screen
+
+    })
   }
 }
