@@ -5,7 +5,7 @@
   "background_color": "#ffffff",
   "display": "standalone",
   "Scope": "/sticky-notes",
-  "start_url": "/sticky-notes",
+  "start_url": "/sticky-notes/index.html",
   "icons": [{
       "src": "images/icons/icon-72x72.png",
       "sizes": "72x72",
