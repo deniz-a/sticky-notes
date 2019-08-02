@@ -27,7 +27,7 @@ export default {
   },
   template: `
     <div class="bg-tint" @click.self="$emit('close')">
-      <article :class="'note page note-color-'+note.color">
+      <article id="note-window" :class="'note page note-color-'+note.color">
         <header>
           <a @click="$emit('close')">close</a>
           <a @click="$emit('delete')">delete</a>
@@ -58,4 +58,8 @@ export default {
       })
     },
   },
+  mounted() {
+    document.querySelector('meta[name=theme-color]').setAttribute('content',
+      getComputedStyle(document.getElementById('note-window')).getPropertyValue("--note-rim-color"))
+  }
 }

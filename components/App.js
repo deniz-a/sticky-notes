@@ -46,7 +46,7 @@ export default {
 
     <note-window v-if="openedNote !== null"
       :note="openedNote"
-      @close="openedNote = null"
+      @close="closeNoteWindow"
       @delete="deleteNote(openedNote.id)"
       @input="saveOpenedNote"></note-window>
   </div>`,
@@ -71,6 +71,11 @@ export default {
     },
   },
   methods: {
+    closeNoteWindow() {
+      this.openedNote = null
+      document.querySelector('meta[name=theme-color]').setAttribute('content',
+        '#f8ed74')
+    },
     createNote() {
       this.noteRepo.saveNote({
           color: 'yellow',
