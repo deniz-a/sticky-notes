@@ -48,6 +48,8 @@ export default {
       color
     }) {
       this.$set(this.note, 'color', color)
+      document.querySelector('meta[name=theme-color]').setAttribute('content',
+        getComputedStyle(document.getElementById('note-window')).getPropertyValue("--note-rim-color"))
       this.$emit('input')
     },
     share() {
